@@ -1,0 +1,4 @@
+venv/
+*.log
+ultimo_backup.json
+__pycache__/
