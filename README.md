@@ -6,56 +6,58 @@
 
 ## Português
 
-Este projeto automatiza a compactação e movimentação de backups organizados em estruturas de pastas por data (**Ano/Mês/Dia**). Ele foi desenvolvido para facilitar o arquivamento de logs ou documentos de servidores de forma inteligente, evitando duplicidade.
-
-### 🛠️ Requisitos
-* **Python 3.10 ou superior**: [Baixar aqui](https://www.python.org/)
-* **Git**: Para clonar o repositório.
+Este projeto automatiza a compactação e movimentação de backups organizados em estruturas de pastas por data (**Ano/Mês/Dia**). A versão atual permite que o usuário selecione manualmente um intervalo de dias (pastas numeradas) dentro de um mês específico.
 
 ### ⚙️ Configuração
-1. **config.json**: Edite os caminhos de origem e destino (use `\\`).
-2. **ultimo_backup.json**: Define a data de partida (coloque a data do dia anterior ao desejado).
+1. **config.json**: Edite os caminhos de origem e destino (use `\\` para caminhos Windows).
+   - `caminho_origem`: Onde ficam as pastas Ano/Mês/Dia.
+   - `caminho_destino`: Onde os arquivos .zip serão salvos.
 
 ### 🚀 Como Usar
-* **Modo Facilitado**: Dê dois cliques no arquivo `executar_backup.bat`.
-* **Modo Manual**: Execute `python main.py` no terminal.
+1. Execute o arquivo `executar_backup.bat`.
+2. O sistema solicitará os seguintes dados:
+   - **Ano** (ex: 2026)
+   - **Mês** (ex: 1)
+   - **Dia Inicial** (ex: 10)
+   - **Dia Final** (ex: 20)
+3. O sistema processará todas as pastas numeradas dentro desse intervalo.
 
 ---
 
 ## English
 
-This project automates the compression and transfer of backups organized in date-based directory structures (**Year/Month/Day**).
-
-### 🛠️ Requirements
-* **Python 3.10+**
-* **Git**
+This project automates the compression and transfer of backups organized in date-based directory structures (**Year/Month/Day**). The current version allows users to manually select a range of days (numbered folders) within a specific month.
 
 ### ⚙️ Configuration
-1. **config.json**: Set your source and destination paths.
-2. **ultimo_backup.json**: Set the starting point date.
+1. **config.json**: Set your source and destination paths (use `\\` for Windows).
 
 ### 🚀 How to Use
-* **Easy Mode**: Double-click the `executar_backup.bat` file.
-* **Manual Mode**: Run `python main.py` in the terminal.
+1. Run the `executar_backup.bat` file.
+2. Enter the requested information:
+   - **Year** (e.g., 2026)
+   - **Month** (e.g., 1)
+   - **Start Day** (e.g., 10)
+   - **End Day** (e.g., 20)
+3. The system will process all numbered folders within that range.
 
 ---
 
 ## Français
 
-Ce projet automatise la compression et le transfert de sauvegardes organisées dans une structure de dossiers par date (**Année/Mois/Jour**).
-
-### 🛠️ Prérequis
-* **Python 3.10+**
-* **Git**
+Ce projet automatise la compression et le transfert de sauvegardes organisées dans une structure de dossiers par date (**Année/Mois/Jour**). La version actuelle permet à l'utilisateur de sélectionner manuellement une plage de jours (dossiers numérotés) dans un mois spécifique.
 
 ### ⚙️ Configuration
-1. **config.json** : Définissez vos chemins source et destination.
-2. **ultimo_backup.json** : Définissez la date de début.
+1. **config.json** : Définissez vos chemins source et destination (utilisez `\\` pour Windows).
 
 ### 🚀 Utilisation
-* **Mode Facile** : Double-cliquez sur le fichier `executar_backup.bat`.
-* **Mode Manuel** : Exécutez `python main.py` dans le terminal.
+1. Lancez le fichier `executar_backup.bat`.
+2. Saisissez les informations demandées :
+   - **Année** (ex : 2026)
+   - **Mois** (ex : 1)
+   - **Jour de début** (ex : 10)
+   - **Jour de fin** (ex : 20)
+3. Le système traitera tous les dossiers numérotés dans cet intervalle.
 
 ---
 
-📊 **Funcionalidades / Features**: Multithreading | Auto Date Skip | Logging System
+📊 **Funcionalidades / Features**: Manual Range Selection | Multithreading | Error Logging
