@@ -1,0 +1,5 @@
+{
+    "caminho_origem": "C:\\Projetos\\AutomacaoBackup\\Teste_Origem",
+    "caminho_destino": "C:\\Projetos\\AutomacaoBackup\\Teste_Destino",
+    "limite_threads": 4
+}
