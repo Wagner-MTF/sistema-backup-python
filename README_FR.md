@@ -1,7 +1,3 @@
----
-
-### 3️⃣ Arquivo: `README_FR.md` (Francês)
-```markdown
 [🇧🇷 Português](README.md) | [🇺🇸 English](README_EN.md) | [🇫🇷 Français](README_FR.md)
 
 # 🛡️ Système de Sauvegarde Automatisé (Multi-Modalité)
@@ -10,7 +6,7 @@
 ---
 
 ## 📋 Présentation Générale
-Ce système automatise le processus de compression (ZIP) et le déplacement des sauvegardes pour les modalités **CR**, **MG** et **CT**. Il est conçu pour un fonctionnement autonome, mémorisant sa progression et organisant des registres détaillés pour chaque secteur.
+Ce système automatise le processus de compression (ZIP) et le déplacement des sauvegardes pour les modalités **CR**, **MG** et **CT**. Il a été conçu pour fonctionner de manière autonome, en mémorisant sa progression et en organisant des registres détaillés pour chaque secteur.
 
 ---
 
@@ -24,4 +20,44 @@ Ce système automatise le processus de compression (ZIP) et le déplacement des 
 | **Traitement Parallèle** | Utilise des *Threads* pour compresser plusieurs dossiers simultanément. |
 
 ---
-**Développé par :** Wagner Matheus de Faria | **Statut :** Stable ✅
+
+## 🛠️ Configuration de l'Environnement
+
+### 1. Structure du `config.json`
+Assurez-vous que les chemins utilisent des doubles barres obliques inverses (`\\`).
+
+```json
+{
+    "modalités": {
+        "CR": "E:\\DCM\\CR",
+        "MG": "E:\\DCM\\MG",
+        "CT": "E:\\DCM\\CT"
+    },
+    "chemin_destination": "C:\\Users\\User\\Documents\\BACKUP_FINAL",
+    "limite_threads": 4
+}
+```
+
+## 2. Planification Windows
+Pour une automatisation totale, configurez le Planificateur de tâches :
+
+Déclencheur : Quotidien (ex : 01h00).
+
+Action : Démarrer un programme -> executar_backup.bat.
+
+Commencer dans : Saisissez le chemin du dossier du projet C:\AutomacaoBackup.
+
+## 📂 Organisation des Logs
+Les enregistrements sont sauvegardés selon la structure suivante :
+
+```
+logs/
+├── CR/
+│   └── backup_2026-02.log
+├── MG/
+│   └── backup_2026-02.log
+└── CT/
+    └── backup_2026-02.log
+```
+
+Développé par : Wagner Matheus de Faria | Statut : Stable ✅
