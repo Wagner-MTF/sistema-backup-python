@@ -1,14 +1,23 @@
 @echo off
-title Sistema de Automacao de Backup - Wagner MTF
-echo Iniciando o processo de backup...
-echo ---------------------------------------
+title Sistema de Backup Manual - Wagner MTF
+cls
 
-:: Navega ate a pasta do projeto
-cd /d "C:\Projetos\AutomacaoBackup"
+echo =======================================================
+echo          SISTEMA DE BACKUP POR INTERVALO
+echo =======================================================
+echo.
+echo Diretorio do Projeto: %~dp0
+echo.
 
-:: Executa o script Python
+:: Navega ate a pasta onde o script esta
+cd /d "%~dp0"
+
+:: Executa o Python e permite que o usuario interaja com as perguntas
 python main.py
 
-echo ---------------------------------------
-echo Processo concluido! Verifique os logs.
+echo.
+echo =======================================================
+echo    Processo Finalizado. Verifique a pasta de Destino.
+echo =======================================================
+echo.
 pause

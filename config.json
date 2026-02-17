@@ -1,5 +1,9 @@
 {
-    "caminho_origem": "C:\\Projetos\\AutomacaoBackup\\Teste_Origem",
-    "caminho_destino": "C:\\Projetos\\AutomacaoBackup\\Teste_Destino",
+    "modalidades": {
+        "CR": "E:\\DCM\\CR",
+        "MG": "E:\\DCM\\MG",
+        "CT": "E:\\DCM\\CT"
+    },
+    "caminho_destino": "C:\\Users\\User\\Documents\\TESTE BAKCUP",
     "limite_threads": 4
 }

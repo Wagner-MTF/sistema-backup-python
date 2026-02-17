@@ -2,16 +2,13 @@ import os
 import zipfile
 import logging
 import json
-from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
 
 # 1. Carregar Configurações
-with open('config.json', 'r') as f:
-    config = json.load(f)
-
-ORIGEM = config['caminho_origem']
-DESTINO = config['caminho_destino']
-ESTADO_FILE = 'ultimo_backup.json'
+def carregar_config():
+    with open('config.json', 'r') as f:
+        return json.load(f)
 
 # 2. Configurar Logging
 if not os.path.exists('logs'): os.makedirs('logs')
@@ -21,70 +18,75 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-def carregar_proxima_data():
-    if os.path.exists(ESTADO_FILE):
-        with open(ESTADO_FILE, 'r') as f:
-            dados = json.load(f)
-            data_str = f"{dados['ano']}-{dados['mes']}-{dados['dia']}"
-            data_dt = datetime.strptime(data_str, "%Y-%m-%d") + timedelta(days=1)
-            return data_dt
-    # Se não existir histórico, começa de uma data inicial (ajuste aqui se precisar)
-    return datetime(2026, 1, 14) 
-
-def salvar_estado(data_dt):
-    with open(ESTADO_FILE, 'w') as f:
-        json.dump({
-            "ano": data_dt.year,
-            "mes": data_dt.month,
-            "dia": data_dt.day,
-            "data_completa": data_dt.strftime("%Y-%m-%d")
-        }, f)
-
-def zipar_e_mover(caminho_pasta, nome_zip):
+def zipar_e_mover(caminho_pasta, nome_zip, destino):
     try:
-        caminho_final_zip = os.path.join(DESTINO, f"{nome_zip}.zip")
+        caminho_final_zip = os.path.join(destino, f"{nome_zip}.zip")
         with zipfile.ZipFile(caminho_final_zip, 'w', zipfile.ZIP_DEFLATED) as zipf:
             for raiz, _, arquivos in os.walk(caminho_pasta):
                 for arquivo in arquivos:
                     caminho_completo = os.path.join(raiz, arquivo)
                     arcname = os.path.relpath(caminho_completo, caminho_pasta)
                     zipf.write(caminho_completo, arcname)
+        logging.info(f"Sucesso: {nome_zip}")
         return True
     except Exception as e:
         logging.error(f"Erro em {nome_zip}: {str(e)}")
         return False
 
 def executar_sistema():
-    data_alvo = carregar_proxima_data()
+    config = carregar_config()
+    modalidades = config['modalidades']
+    destino = config['caminho_destino']
     
-    # Monta o caminho: ORIGEM / ANO / MES / DIA
-    # Exemplo: Teste_Origem/2026/1/15
-    pasta_do_dia = os.path.join(ORIGEM, str(data_alvo.year), str(data_alvo.month), str(data_alvo.day))
+    print("\n==========================================")
+    print("      SISTEMA DE BACKUP POR MODALIDADE    ")
+    print("==========================================")
+    print("Opções: CR, MG, CT ou TODAS")
+    escolha = input("👉 Escolha a modalidade: ").upper().strip()
 
-    print(f"Tentando acessar: {pasta_do_dia}")
-
-    if os.path.exists(pasta_do_dia):
-        subpastas = [os.path.join(pasta_do_dia, f) for f in os.listdir(pasta_do_dia) 
-                     if os.path.isdir(os.path.join(pasta_do_dia, f))]
-
-        if subpastas:
-            print(f"Fazendo backup de {len(subpastas)} pastas do dia {data_alvo.strftime('%d/%m/%Y')}...")
-            
-            with ThreadPoolExecutor(max_workers=config['limite_threads']) as executor:
-                for pasta in subpastas:
-                    nome_arquivo = f"Backup_{data_alvo.year}_{data_alvo.month}_{data_alvo.day}_{os.path.basename(pasta)}"
-                    executor.submit(zipar_e_mover, pasta, nome_arquivo)
-            print("Sucesso!")
-        else:
-            print("Pasta do dia encontrada, mas está vazia.")
-
-        # ESTA LINHA DEVE FICAR AQUI (Fora do if subpastas e fora do else)
-        # Ela garante que o dia seja salvo de qualquer jeito se a pasta existir
-        salvar_estado(data_alvo)
-        logging.info(f"Processamento do dia {data_alvo.strftime('%Y-%m-%d')} concluído.")
-
+    # Define quais caminhos serão processados
+    pastas_para_processar = {}
+    if escolha == "TODAS":
+        pastas_para_processar = modalidades
+    elif escolha in modalidades:
+        pastas_para_processar = {escolha: modalidades[escolha]}
     else:
-        print(f"A pasta do dia {data_alvo.day} ainda não existe no caminho especificado.")
+        print(f"❌ Opção '{escolha}' inválida!")
+        return
+
+    ano = input("📅 Digite o ANO (ex: 2026): ").strip()
+    mes = input("📂 Digite o MÊS (ex: 1): ").strip()
+    dia_inicio = int(input("🔢 Dia INICIAL: "))
+    dia_fim = int(input("🔢 Dia FINAL: "))
+
+    for mod, caminho_base in pastas_para_processar.items():
+        print(f"\n--- 📁 Processando Modalidade: {mod} ---")
+        
+        for dia in range(dia_inicio, dia_fim + 1):
+            # Monta o caminho garantindo que não haja espaços extras
+            caminho_dia = os.path.join(caminho_base.strip(), str(ano), str(mes), str(dia))
+
+            # Exibe o caminho para você conferir se está correto
+            print(f"🔍 Tentando acessar: {caminho_dia}")
+
+            if os.path.exists(caminho_dia):
+                subpastas = [os.path.join(caminho_dia, f) for f in os.listdir(caminho_dia) 
+                             if os.path.isdir(os.path.join(caminho_dia, f))]
+
+                if subpastas:
+                    print(f"✅ Dia {dia}: {len(subpastas)} pastas encontradas.")
+                    with ThreadPoolExecutor(max_workers=config['limite_threads']) as executor:
+                        for pasta in subpastas:
+                            nome_zip = f"Backup_{mod}_{ano}_{mes}_{dia}_{os.path.basename(pasta)}"
+                            executor.submit(zipar_e_mover, pasta, nome_zip, destino)
+                else:
+                    print(f"⚠️ Dia {dia}: Pasta encontrada, mas está vazia.")
+            else:
+                print(f"📂 Dia {dia}: Não encontrado. (Verifique se o caminho acima existe)")
+
+    print("\n==========================================")
+    print("      PROCESSO CONCLUÍDO COM SUCESSO!     ")
+    print("==========================================\n")
 
 if __name__ == "__main__":
     executar_sistema()
