@@ -35,7 +35,7 @@ Certifique-se de que os caminhos utilizam barras duplas (`\\`).
     },
     "caminho_destino": "C:\\Users\\User\\Documents\\BACKUP_FINAL",
     "limite_threads": 4
-}
+}```
 
 2. Agendamento no Windows
 Para automação total, configure o Agendador de Tarefas:
