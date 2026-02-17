@@ -1,7 +1,3 @@
----
-
-### 2️⃣ Arquivo: `README_EN.md` (Inglês)
-```markdown
 [🇧🇷 Português](README.md) | [🇺🇸 English](README_EN.md) | [🇫🇷 Français](README_FR.md)
 
 # 🛡️ Automated Backup System (Multi-Modality)
@@ -10,7 +6,7 @@
 ---
 
 ## 📋 Overview
-This system automates the compression (ZIP) and relocation of backups for **CR**, **MG**, and **CT** modalities. It is designed for autonomous operation, remembering its last progress and maintaining detailed records for each sector.
+This system automates the process of compressing (ZIP) and relocating backups for **CR**, **MG**, and **CT** modalities. It was designed to operate autonomously, remembering its last progress and organizing detailed records for each sector.
 
 ---
 
@@ -40,5 +36,26 @@ Ensure that file paths use double backslashes (`\\`).
     "destination_path": "C:\\Users\\User\\Documents\\BACKUP_FINAL",
     "thread_limit": 4
 }
+```
 
-Developed by: Wagner Matheus de Faria | Status: Stable ✅
+## 2. Windows Scheduling
+For full automation, configure the Task Scheduler:
+
+Trigger: Daily (e.g., 01:00 AM).
+
+Action: Start a program -> executar_backup.bat.
+
+Start in: Enter the project folder path C:\AutomacaoBackup.
+
+## 📂 Log Organization
+Records are saved following this structure:
+
+```
+logs/
+├── CR/
+│   └── backup_2026-02.log
+├── MG/
+│   └── backup_2026-02.log
+└── CT/
+    └── backup_2026-02.log
+```
