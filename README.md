@@ -39,7 +39,7 @@ Certifique-se de que os caminhos utilizam barras duplas (`\\`).
 
 ```
 
-2. Agendamento no Windows
+## 2. Agendamento no Windows
 Para automação total, configure o Agendador de Tarefas:
 
 Trigger: Diário (ex: 01:00 AM).
