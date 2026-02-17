@@ -51,6 +51,7 @@ Diretório: No campo "Iniciar em", coloque C:\AutomacaoBackup.
 📂 Organização de Logs
 Os registos são salvos seguindo a estrutura:
 
+```
 logs/
 ├── CR/
 │   └── backup_2026-02.log
@@ -59,4 +60,5 @@ logs/
 └── CT/
     └── backup_2026-02.log
 
+```
 Desenvolvido por: Wagner Matheus de Faria | Status: Estável ✅
