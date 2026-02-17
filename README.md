@@ -26,7 +26,7 @@ Este sistema automatiza o processo de compressão (ZIP) e movimentação de back
 ### 1. Estrutura do `config.json`
 Certifique-se de que os caminhos utilizam barras duplas (`\\`).
 
-```json
+json
 {
     "modalidades": {
         "CR": "E:\\DCM\\CR",
@@ -35,7 +35,7 @@ Certifique-se de que os caminhos utilizam barras duplas (`\\`).
     },
     "caminho_destino": "C:\\Users\\User\\Documents\\BACKUP_FINAL",
     "limite_threads": 4
-}```
+}
 
 2. Agendamento no Windows
 Para automação total, configure o Agendador de Tarefas:
