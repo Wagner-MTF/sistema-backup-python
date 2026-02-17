@@ -48,7 +48,7 @@ Ação: Iniciar um programa -> executar_backup.bat.
 
 Diretório: No campo "Iniciar em", coloque C:\AutomacaoBackup.
 
-📂 Organização de Logs
+## 📂 Organização de Logs
 Os registos são salvos seguindo a estrutura:
 
 ```
