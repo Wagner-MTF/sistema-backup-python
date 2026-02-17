@@ -1,57 +1,27 @@
-🚀 Système d'Automatisation de Sauvegarde Python
-Ce projet automatise la compression et le transfert de sauvegardes organisées dans une structure de dossiers par date (Année/Mois/Jour). Il a été conçu pour gérer intelligemment l'archivage des journaux (logs) ou des documents de serveur, garantissant l'efficacité et évitant les doublons.
+---
 
-🛠️ Prérequis
-Avant de commencer, assurez-vous d'avoir installé :
+### 3️⃣ Arquivo: `README_FR.md` (Francês)
+```markdown
+[🇧🇷 Português](README.md) | [🇺🇸 English](README_EN.md) | [🇫🇷 Français](README_FR.md)
 
-Python 3.10 ou supérieur : Télécharger ici - https://www.python.org/
+# 🛡️ Système de Sauvegarde Automatisé (Multi-Modalité)
+> **Version 3.0** | Sauvegarde intelligente avec persistance d'état et journaux séparés.
 
-Git : Pour cloner le dépôt.
+---
 
-📦 Installation
-Clonez le dépôt :
+## 📋 Présentation Générale
+Ce système automatise le processus de compression (ZIP) et le déplacement des sauvegardes pour les modalités **CR**, **MG** et **CT**. Il est conçu pour un fonctionnement autonome, mémorisant sa progression et organisant des registres détaillés pour chaque secteur.
 
-Bash
-git clone https://github.com/Wagner-MTF/sistema-backup-python.git
-Accédez au dossier du projet :
+---
 
-Bash
-cd sistema-backup-python
-⚙️ Configuration
-Le système utilise deux fichiers JSON pour le contrôle :
+## 🚀 Fonctionnalités Principales
 
-1. config.json
-Modifiez ce fichier pour définir vos chemins source et destination. Note : Sur Windows, utilisez des doubles barres obliques \\.
+| Fonctionnalité | Description |
+| :--- | :--- |
+| **Persistance** | Utilise `estado_backup.json` pour ne jamais répéter ou sauter un jour. |
+| **Multi-Secteur** | Traite des chemins indépendants pour CR, MG et CT. |
+| **Logs Séparés** | Chaque modalité possède son propre dossier d'historique pour un audit rapide. |
+| **Traitement Parallèle** | Utilise des *Threads* pour compresser plusieurs dossiers simultanément. |
 
-JSON
-{
-    "caminho_origem": "C:\\Chemin\\De\\Votre\\Source",
-    "caminho_destino": "Z:\\Votre\\Serveur\\De\\Sauvegarde",
-    "limite_threads": 4
-}
-2. ultimo_backup.json
-Ce fichier assure le suivi de la dernière date traitée. Pour commencer à partir du 01/01/2026, configurez-le avec la date du jour précédent :
-
-JSON
-{
-    "ano": 2025,
-    "mes": 12,
-    "dia": 31
-}
-🚀 Utilisation
-Mode Manuel
-Exécutez le script directement via le terminal :
-
-PowerShell
-python main.py
-Accès Facilité (Windows)
-Double-cliquez sur le fichier backup.bat à la racine du projet. Cela ouvrira le terminal, lancera le processus et gardera la fenêtre ouverte pour que vous puissiez vérifier les résultats.
-
-📊 Fonctionnalités
-Multithreading : Compresse plusieurs sous-dossiers simultanément pour une vitesse maximale.
-
-Saut de Date Automatique : Le système lit l'état actuel et passe automatiquement au jour suivant disponible.
-
-Système de Logs : Chaque opération génère un registre détaillé dans le dossier /logs pour l'audit.
-
-Hiérarchie Intelligente : Navigue automatiquement dans les dossiers au format Année > Mois > Jour.
+---
+**Développé par :** Wagner Matheus de Faria | **Statut :** Stable ✅

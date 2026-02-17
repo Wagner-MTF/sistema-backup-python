@@ -1,57 +1,44 @@
-🚀 Python Backup Automation System
-This project automates the compression and transfer of backups organized in a date-based directory structure (Year/Month/Day). It was designed to handle server logs or documents intelligently, ensuring efficiency and preventing duplicates.
+---
 
-🛠️ Requirements
-Before starting, ensure you have:
+### 2️⃣ Arquivo: `README_EN.md` (Inglês)
+```markdown
+[🇧🇷 Português](README.md) | [🇺🇸 English](README_EN.md) | [🇫🇷 Français](README_FR.md)
 
-Python 3.10 or higher: Download here - https://www.python.org/
+# 🛡️ Automated Backup System (Multi-Modality)
+> **Version 3.0** | Intelligent backup with state persistence and segregated logs.
 
-Git: To clone the repository.
+---
 
-📦 Installation
-Clone the repository:
+## 📋 Overview
+This system automates the compression (ZIP) and relocation of backups for **CR**, **MG**, and **CT** modalities. It is designed for autonomous operation, remembering its last progress and maintaining detailed records for each sector.
 
-Bash
-git clone https://github.com/Wagner-MTF/sistema-backup-python.git
-Enter the project folder:
+---
 
-Bash
-cd sistema-backup-python
-⚙️ Configuration
-The system uses two JSON files for control:
+## 🚀 Key Features
 
-1. config.json
-Edit this file to define your source and destination paths. Note: On Windows, use double backslashes \\.
+| Feature | Description |
+| :--- | :--- |
+| **Persistence** | Uses `estado_backup.json` to never repeat or skip a day. |
+| **Multi-Sector** | Processes independent paths for CR, MG, and CT. |
+| **Segregated Logs** | Each modality has its own history folder for quick auditing. |
+| **Parallel Processing** | Uses *Threads* to compress multiple folders simultaneously. |
 
-JSON
+---
+
+## 🛠️ Environment Setup
+
+### 1. `config.json` Structure
+Ensure that file paths use double backslashes (`\\`).
+
+```json
 {
-    "caminho_origem": "C:\\Path\\To\\Your\\Source",
-    "caminho_destino": "Z:\\Your\\Backup\\Server",
-    "limite_threads": 4
+    "modalities": {
+        "CR": "E:\\DCM\\CR",
+        "MG": "E:\\DCM\\MG",
+        "CT": "E:\\DCM\\CT"
+    },
+    "destination_path": "C:\\Users\\User\\Documents\\BACKUP_FINAL",
+    "thread_limit": 4
 }
-2. ultimo_backup.json
-This file keeps track of the last processed date. To start from 2026-01-01, set it to the previous day:
 
-JSON
-{
-    "ano": 2025,
-    "mes": 12,
-    "dia": 31
-}
-🚀 How to Use
-Manual Mode
-Run the script directly via terminal:
-
-PowerShell
-python main.py
-Easy Access (Windows)
-Double-click the backup.bat file in the project root. It will open the terminal, run the process, and keep the window open for you to check the results.
-
-📊 Features
-Multithreading: Compresses multiple subfolders simultaneously for maximum speed.
-
-Automatic Date Skip: The system reads the current state and automatically moves to the next available day.
-
-Logging System: Every operation generates a detailed log in the /logs folder for auditing.
-
-Smart Hierarchy: Automatically navigates folders in Year > Month > Day format.
+Developed by: Wagner Matheus de Faria | Status: Stable ✅
