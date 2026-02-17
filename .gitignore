@@ -2,3 +2,8 @@ venv/
 *.log
 ultimo_backup.json
 __pycache__/
+
+# Adicione estas linhas:
+Teste_Origem/
+Teste_Destino/
+logs/
